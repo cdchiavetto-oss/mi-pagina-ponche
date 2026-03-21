@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cristian</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, serif;
+      background-color: #b0b0b0;
+      color: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.85rem 2.2rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    #info {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: #555;
+      max-width: 400px;
+      display: none;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Cristian</h1>
+
+  <button onclick="mostrarInfo()">Saber más de mí</button>
+
+  <p id="info">
+    Hola, soy Cristian. Estoy aprendiendo a publicar páginas web y experimentando con GitHub y Vercel. ¡Pronto habrá más info por acá!
+  </p>
+
+  <script>
+    function mostrarInfo() {
+      const info = document.getElementById('info');
+      info.style.display = info.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+
+</body>
+</html>
