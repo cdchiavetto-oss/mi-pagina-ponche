@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis redes sociales — Cristian Chiavetto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e4c97e;
+      --gold-dim: rgba(201,168,76,0.12);
+      --bg: #0e0d0b;
+      --text: #f0ece4;
+      --text-muted: rgba(240,236,228,0.45);
+      --border: rgba(201,168,76,0.2);
+    }
+
+    html, body {
+      min-height: 100vh;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: "Outfit", sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: -20%; left: -10%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 48px 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* BACK LINK */
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+      transition: color 0.3s;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.05s forwards;
+    }
+
+    .back:hover { color: var(--gold); }
+
+    .back svg {
+      width: 12px; height: 12px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* HEADER */
+    .header {
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
+    }
+
+    .eyebrow {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.05;
+    }
+
+    h1 em { font-style: italic; color: var(--gold-light); }
+
+    .divider {
+      width: 48px; height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-top: 24px;
+    }
+
+    /* CARDS */
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px 28px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, transform 0.3s;
+      opacity: 0;
+    }
+
+    .card:nth-child(1) { animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards; }
+    .card:nth-child(2) { animation: fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s forwards; }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    /* Facebook */
+    .card.facebook::before {
+      background: linear-gradient(135deg, rgba(24,119,242,0.08) 0%, transparent 70%);
+    }
+    .card.facebook:hover { border-color: rgba(24,119,242,0.4); }
+    .card.facebook:hover::before { opacity: 1; }
+    .card.facebook:hover .card-icon { border-color: rgba(24,119,242,0.5); background: rgba(24,119,242,0.1); color: #4a90d9; }
+    .card.facebook:hover .card-name { color: #4a90d9; }
+    .card.facebook:hover .card-arrow { color: #4a90d9; }
+
+    /* Instagram */
+    .card.instagram::before {
+      background: linear-gradient(135deg, rgba(225,48,108,0.08) 0%, transparent 70%);
+    }
+    .card.instagram:hover { border-color: rgba(225,48,108,0.4); }
+    .card.instagram:hover::before { opacity: 1; }
+    .card.instagram:hover .card-icon { border-color: rgba(225,48,108,0.5); background: rgba(225,48,108,0.1); color: #e1306c; }
+    .card.instagram:hover .card-name { color: #e1306c; }
+    .card.instagram:hover .card-arrow { color: #e1306c; }
+
+    .card:hover { transform: translateX(4px); }
+
+    .card-icon {
+      width: 48px; height: 48px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      position: relative; z-index: 1;
+    }
+
+    .card-icon svg {
+      width: 22px; height: 22px;
+      fill: currentColor;
+    }
+
+    .card-body {
+      flex: 1;
+      position: relative; z-index: 1;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+      transition: color 0.3s;
+    }
+
+    .card-handle {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .card-arrow {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      transition: all 0.3s ease;
+      position: relative; z-index: 1;
+      transform: translateX(-4px);
+    }
+
+    .card:hover .card-arrow { transform: translateX(0); }
+
+    /* BOTTOM BAR */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 14px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      background: rgba(14,13,11,0.85);
+      backdrop-filter: blur(12px);
+      z-index: 10;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.7s forwards;
+    }
+
+    .bar-text {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .bar-text span { color: var(--gold); }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .page { padding: 60px 24px 90px; }
+      .bottom-bar { padding: 12px 24px; }
+      .card { padding: 20px 20px; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <a class="back" href="index.html">
+      <svg viewBox="0 0 24 24"><polyline points="15,18 9,12 15,6"/></svg>
+      Volver al inicio
+    </a>
+
+    <div class="header">
+      <p class="eyebrow">Cristian Chiavetto</p>
+      <h1>Mis redes<br><em>sociales</em></h1>
+      <div class="divider"></div>
+    </div>
+
+    <div class="cards">
+
+      <a class="card facebook" href="https://www.facebook.com/cchiavetto/" target="_blank">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </div>
+        <div class="card-body">
+          <p class="card-name">Facebook</p>
+          <p class="card-handle">facebook.com/cchiavetto</p>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+
+      <a class="card instagram" href="https://www.instagram.com/_cristianchiavetto" target="_blank">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </div>
+        <div class="card-body">
+          <p class="card-name">Instagram</p>
+          <p class="card-handle">@_cristianchiavetto</p>
+        </div>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+
+    </div>
+
+  </div>
+
+  <footer class="bottom-bar">
+    <span class="bar-text">Cristian Chiavetto &mdash; <span>2025</span></span>
+    <span class="bar-text">Hecho con <span>&hearts;</span> y curiosidad</span>
+  </footer>
+
+</body>
+</html>
